@@ -2,6 +2,7 @@ package com.MyCityVoice.proj.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import java.util.*;
 
 @Entity
 @Table (name = "city")
@@ -14,6 +15,10 @@ public class City {
     @NotBlank(message = "Имя обязательно")
     private String name;
     private String slug;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CityMedia> media = new ArrayList<>();
+
 
     public Long getId() {
         return id;
