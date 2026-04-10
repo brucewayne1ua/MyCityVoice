@@ -18,16 +18,15 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public City getCity(String name) {
-        return cityRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("City not found: " + name));
-    }
-
-    public City getCity(Long id) {
+    public City getById(Long id) {
         return cityRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("City not found with id: " + id));
     }
 
+    public City getByName(String name) {
+        return cityRepository.findByName(name)
+                .orElseThrow(() -> new RuntimeException("City not found: " + name));
+    }
 
     public City createCity(City city){
         return cityRepository.save(city);

@@ -35,7 +35,7 @@ public class ReviewService {
 
         User user = userService.getUser(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        City city = cityService.getCity(cityId);
+        City city = cityService.getById(cityId);
         if (city == null) {
             throw new EntityNotFoundException("City not found");
         }

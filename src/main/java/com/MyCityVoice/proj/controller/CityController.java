@@ -1,6 +1,7 @@
 package com.MyCityVoice.proj.controller;
 
 import com.MyCityVoice.proj.model.City;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.MyCityVoice.proj.service.CityService;
@@ -23,7 +24,7 @@ public class CityController {
 
     @GetMapping("/{id}")
     public City getOne (@PathVariable Long id){
-        return cityService.getCity(id);
+        return cityService.getById(id);
     }
 
     @PostMapping
