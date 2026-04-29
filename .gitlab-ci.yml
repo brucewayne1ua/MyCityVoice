@@ -1,0 +1,20 @@
+stages:
+  - build
+  - docker
+
+build-job:
+  image: eclipse-temurin:17
+  stage: build
+  script:
+    - ./mvnw clean package
+  artifacts:
+    paths:
+      - target/*.jar
+
+docker-job:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: docker
+  script:
+    - docker build -t my-spring-app .
