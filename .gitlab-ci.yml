@@ -1,21 +1,22 @@
 stages:
   - build
-  - docker
+  - test
 
-build-job:
-  image: eclipse-temurin:17
+image: maven:3.9-eclipse-temurin-17
+
+cache:
+  paths:
+    - .m2/repository
+
+build:
   stage: build
   script:
-    - chmod +x mvnw
-    - ./mvnw clean package
+    - mvn clean package -DskipTests
   artifacts:
     paths:
       - target/*.jar
 
-docker-job:
-  image: docker:latest
-  services:
-    - docker:dind
-  stage: docker
+test:
+  stage: test
   script:
-    - docker build -t my-spring-app .
+    - mvn test
