@@ -1,12 +1,18 @@
 stages:
-  - build
   - test
+  - build
+  - docker
 
 image: maven:3.9-eclipse-temurin-17
 
 cache:
   paths:
     - .m2/repository
+
+test:
+  stage: test
+  script:
+    - mvn test
 
 build:
   stage: build
@@ -16,7 +22,10 @@ build:
     paths:
       - target/*.jar
 
-test:
-  stage: test
+docker:
+  stage: docker
+  image: docker:24
+  services:
+    - docker:24-dind
   script:
-    - mvn test
+    - docker build -t myapp .
