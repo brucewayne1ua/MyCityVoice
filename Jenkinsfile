@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.6-eclipse-temurin-17'
-        }
-    }
+    agent any
 
     stages {
 
@@ -24,11 +20,11 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
-    }
 
-    post {
-        success {
-            archiveArtifacts artifacts: 'target/*.jar'
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar'
+            }
         }
     }
 }
